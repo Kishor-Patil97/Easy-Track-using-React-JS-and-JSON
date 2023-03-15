@@ -21,26 +21,3 @@
         "date": "2022-03-03"
     }
 ]
-[
-    {
-        "id": 1,
-        "amount": 5000,
-        "category": "income",
-        "note": "Paycheck",
-        "date": "2022-03-01"
-    },
-    {
-        "id": 2,
-        "amount": 1500,
-        "category": "rent",
-        "note": "Monthly rent",
-        "date": "2022-03-02"
-    },
-    {
-        "id": 3,
-        "amount": 200,
-        "category": "utilities",
-        "note": "Electricity bill",
-        "date": "2022-03-03"
-    }
-]
