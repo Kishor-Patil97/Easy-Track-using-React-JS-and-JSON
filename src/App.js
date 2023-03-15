@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import TransactionTable from "./components/TransactionTable";
+import { Routes, Route } from "react-router";
+import Form from "./components/Form";
+import { writeToJSON } from "./data/writeToJSON";
 
 function App() {
+  const [transactions, setTransactions] = useState([]);
+
+  const handleAddTransaction = (newTransaction) => {
+    setTransactions((prevTransactions) => [
+      ...prevTransactions,
+      newTransaction,
+    ]);
+    writeToJSON(transactions);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>EasyTrack</h1>
+
+      <Routes>
+        <Route
+          path="/"
+          element={<Form handleAddTransaction={handleAddTransaction} />}
+        />
+        <Route
+          path="/TransactionTable"
+          element={<TransactionTable transactions={transactions} />}
+        />
+      </Routes>
     </div>
   );
 }
