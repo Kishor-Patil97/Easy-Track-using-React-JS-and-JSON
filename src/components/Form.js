@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Form.css";
 
-
 const Form = ({ handleAddTransaction }) => {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
@@ -19,7 +18,7 @@ const Form = ({ handleAddTransaction }) => {
     };
 
     handleAddTransaction(newTransaction);
-    
+
     resetForm();
   };
 

@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./TransactionTable.css";
 import data from "../data/data.json";
 
-
 const TransactionTable = () => {
   const [transactionData, setTransactionData] = useState(data);
-  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const jsonData = JSON.stringify(transactionData);
     localStorage.setItem("data", jsonData);
@@ -30,10 +29,6 @@ const TransactionTable = () => {
       return item;
     });
     setTransactionData(newData);
-  };
-
-  const handleAddTransaction = (transaction) => {
-    setTransactionData([...transactionData, transaction]);
   };
 
   return (

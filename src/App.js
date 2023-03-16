@@ -13,7 +13,9 @@ function App() {
       ...prevTransactions,
       newTransaction,
     ]);
-    writeToJSON(transactions);
+
+    const jsonData = JSON.stringify([...transactions, newTransaction]);
+    writeToJSON(jsonData);
   };
 
   return (
