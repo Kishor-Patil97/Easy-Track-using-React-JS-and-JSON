@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./TransactionTable.css";
-import data from "../data/data.json";
+import axios from "axios";
 
-const TransactionTable = () => {
-  const [transactionData, setTransactionData] = useState(data);
+const TransactionTable = (props) => {
+  const [transactionData, setTransactionData] = useState(props.data);
 
   useEffect(() => {
-    const jsonData = JSON.stringify(transactionData);
-    localStorage.setItem("data", jsonData);
-  }, [transactionData]);
+    axios.get("http://localhost:5000/transactions").then((res) => {
+      const jsonData = res.data;
+      setTransactionData(jsonData)
+    });
+    
+  }, []);
 
   const handleDelete = (index) => {
     const newData = transactionData.filter((_, i) => i !== index);

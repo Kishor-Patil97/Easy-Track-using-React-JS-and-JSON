@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import TransactionTable from "./components/TransactionTable";
 import { Routes, Route } from "react-router";
 import Form from "./components/Form";
-import { writeToJSON } from "./data/writeToJSON";
+import axios from "axios";
 
 function App() {
   const [transactions, setTransactions] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:5000/transactions").then((res) => {
+      const jsonData = res.data;
+      setTransactions(jsonData);
+    });
+  },[])
 
   const handleAddTransaction = (newTransaction) => {
     setTransactions((prevTransactions) => [
@@ -14,8 +20,7 @@ function App() {
       newTransaction,
     ]);
 
-    const jsonData = JSON.stringify([...transactions, newTransaction]);
-    writeToJSON(jsonData);
+  axios.post("http://localhost:5000/transactions", newTransaction);
   };
 
   return (
@@ -29,7 +34,7 @@ function App() {
         />
         <Route
           path="/TransactionTable"
-          element={<TransactionTable transactions={transactions} />}
+          element={<TransactionTable data={transactions} />}
         />
       </Routes>
     </div>

@@ -1,0 +1,46 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "amount": 5000,
+      "category": "income",
+      "note": "Paycheck",
+      "date": "2022-03-01"
+    },
+    {
+      "id": 2,
+      "amount": 1500,
+      "category": "rent",
+      "note": "Monthly rent",
+      "date": "2022-03-02"
+    },
+    {
+      "id": 3,
+      "amount": 200,
+      "category": "utilities",
+      "note": "Electricity bill",
+      "date": "2022-03-03"
+    },
+    {
+      "amount": 10,
+      "category": "groceries",
+      "note": "Aldi",
+      "date": "2023-03-15",
+      "id": 4
+    },
+    {
+      "amount": 50,
+      "category": "entertainment",
+      "note": "Movie",
+      "date": "2023-03-01",
+      "id": 5
+    },
+    {
+      "amount": 100,
+      "category": "utilities",
+      "note": "Electricity",
+      "date": "2023-03-02",
+      "id": 6
+    }
+  ]
+}
