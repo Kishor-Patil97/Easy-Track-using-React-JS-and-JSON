@@ -7,20 +7,45 @@ import axios from "axios";
 
 function App() {
   const [transactions, setTransactions] = useState([]);
+
   useEffect(() => {
     axios.get("http://localhost:5000/transactions").then((res) => {
       const jsonData = res.data;
       setTransactions(jsonData);
     });
-  },[])
+  }, []);
 
   const handleAddTransaction = (newTransaction) => {
-    setTransactions((prevTransactions) => [
-      ...prevTransactions,
-      newTransaction,
-    ]);
+    axios
+      .post("http://localhost:5000/transactions", newTransaction)
+      .then((res) => {
+        setTransactions((prevTransactions) => [...prevTransactions, res.data]);
+      });
+  };
 
-  axios.post("http://localhost:5000/transactions", newTransaction);
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:5000/transactions/${id}`).then(() => {
+      setTransactions((prevTransactions) =>
+        prevTransactions.filter((transaction) => transaction.id !== id)
+      );
+    });
+  };
+
+  const handleUpdate = (updatedTransaction) => {
+    axios
+      .put(
+        `http://localhost:5000/transactions/${updatedTransaction.id}`,
+        updatedTransaction
+      )
+      .then(() => {
+        setTransactions((prevTransactions) =>
+          prevTransactions.map((transaction) =>
+            transaction.id === updatedTransaction.id
+              ? updatedTransaction
+              : transaction
+          )
+        );
+      });
   };
 
   return (
@@ -34,7 +59,13 @@ function App() {
         />
         <Route
           path="/TransactionTable"
-          element={<TransactionTable data={transactions} />}
+          element={
+            <TransactionTable
+              data={transactions}
+              handleDelete={handleDelete}
+              handleUpdate={handleUpdate}
+            />
+          }
         />
       </Routes>
     </div>

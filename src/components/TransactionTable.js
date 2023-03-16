@@ -8,17 +8,18 @@ const TransactionTable = (props) => {
   useEffect(() => {
     axios.get("http://localhost:5000/transactions").then((res) => {
       const jsonData = res.data;
-      setTransactionData(jsonData)
+      setTransactionData(jsonData);
     });
-    
   }, []);
 
-  const handleDelete = (index) => {
-    const newData = transactionData.filter((_, i) => i !== index);
-    setTransactionData(newData);
+  const handleDelete = (index, id) => {
+    axios.delete(`http://localhost:5000/transactions/${id}`).then(() => {
+      const newData = transactionData.filter((_, i) => i !== index);
+      setTransactionData(newData);
+    });
   };
 
-  const handleUpdate = (index) => {
+  const handleUpdate = (index, id) => {
     const newData = transactionData.map((item, i) => {
       if (i === index) {
         return {
@@ -31,7 +32,11 @@ const TransactionTable = (props) => {
       }
       return item;
     });
-    setTransactionData(newData);
+    axios
+      .put(`http://localhost:5000/transactions/${id}`, newData[index])
+      .then(() => {
+        setTransactionData(newData);
+      });
   };
 
   return (
@@ -55,8 +60,12 @@ const TransactionTable = (props) => {
                 <td>{transaction.note}</td>
                 <td>{transaction.date}</td>
                 <td>
-                  <button onClick={() => handleUpdate(index)}>Update</button>
-                  <button onClick={() => handleDelete(index)}>Delete</button>
+                  <button onClick={() => handleUpdate(index, transaction.id)}>
+                    Update
+                  </button>
+                  <button onClick={() => handleDelete(index, transaction.id)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

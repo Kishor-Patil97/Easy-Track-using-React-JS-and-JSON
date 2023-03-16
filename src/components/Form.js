@@ -18,7 +18,7 @@ const Form = ({ handleAddTransaction }) => {
     };
 
     handleAddTransaction(newTransaction);
-
+    
     resetForm();
   };
 
